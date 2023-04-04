@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "165516080298",
+    "project_id": "phoneshop-mobilalk",
+    "storage_bucket": "phoneshop-mobilalk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165516080298:android:13fd068f5fe65587120cd3",
+        "android_client_info": {
+          "package_name": "hu.mobilalk.phoneshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165516080298-o52p118jb5mj8j4d1q3mfvb53kov7s96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.mobilalk.phoneshop",
+            "certificate_hash": "1d9a6278cc76eeffd59323644d4ef754b5871ee6"
+          }
+        },
+        {
+          "client_id": "165516080298-r1lcbfl8bkt6bgca9fg5ukmol0vvunh6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBs2nf6Dr0tqAh60TtWjEe4jP_oBflBbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165516080298-r1lcbfl8bkt6bgca9fg5ukmol0vvunh6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
