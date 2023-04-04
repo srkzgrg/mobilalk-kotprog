@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hu.mobilalk.phoneshop.Activities.CartActivity;
 import hu.mobilalk.phoneshop.Models.Cart;
 import hu.mobilalk.phoneshop.R;
 
@@ -50,7 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
 
         if(holder.getAdapterPosition() > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_row);
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
             holder.itemView.startAnimation(animation);
             lastPosition = holder.getAdapterPosition();
         }
@@ -84,6 +85,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
             mInfoText.setText(currentItem.getTermek().getMarka());
             mPriceText.setText(String.valueOf(currentItem.getOsszar()));
             mMennyisegText.setText(String.valueOf(currentItem.getMennyiseg()));
+
+            itemView.findViewById(R.id.plus_cart).setOnClickListener(view -> {
+                ((CartActivity)mContext).plusItem(currentItem);
+            });
+            itemView.findViewById(R.id.minus_cart).setOnClickListener(view -> {
+                ((CartActivity)mContext).minusItem(currentItem);
+            });
         }
     }
 }

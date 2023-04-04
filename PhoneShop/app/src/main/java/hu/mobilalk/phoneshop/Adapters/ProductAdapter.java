@@ -1,6 +1,9 @@
 package hu.mobilalk.phoneshop.Adapters;
 
 
+
+import android.content.Intent;
+import android.net.Uri;
 import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,11 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 import hu.mobilalk.phoneshop.Activities.ShopActivity;
@@ -30,6 +38,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private ArrayList<Product> mShopingItemDataAll = new ArrayList<>();
     private Context mContext;
     private int lastPosition = -1;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
     public ProductAdapter(Context context, ArrayList<Product> itemsData) {
@@ -56,7 +67,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
         if(holder.getAdapterPosition() > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_row);
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
            holder.itemView.startAnimation(animation);
             lastPosition = holder.getAdapterPosition();
         }
@@ -114,6 +125,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private TextView mInfoText;
         private TextView mPriceText;
         private ImageView mItemImage;
+        private TextView mColorText;
+        private TextView mStorageText;
+
         ViewHolder(View itemView) {
             super(itemView);
 
@@ -122,15 +136,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             mInfoText = itemView.findViewById(R.id.productBrand);
             mItemImage = itemView.findViewById(R.id.itemImage);
             mPriceText = itemView.findViewById(R.id.price);
+            mColorText = itemView.findViewById(R.id.productColor);
+            mStorageText = itemView.findViewById(R.id.productStorage);
         }
 
         void bindTo(Product currentItem){
             mTitleText.setText(currentItem.getModel());
             mInfoText.setText(currentItem.getMarka());
-            mPriceText.setText(Integer.toString(currentItem.getAr()));
+            mPriceText.setText(Integer.toString(currentItem.getAr()) + " Ft");
+            mColorText.setText(currentItem.getSzin());
+            mStorageText.setText(Integer.toString(currentItem.getTarhely()) + " GB");
 
-            // Load the images into the ImageView using the Glide library.
-            //Glide.with(mContext).load("R.drawable."+ currentItem.getImage_url()).into(mItemImage);
+
+            StorageReference gsReference = storage.getReferenceFromUrl("gs://phoneshop-mobilalk.appspot.com/images/products/" + currentItem.getImage_url());
+
+            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+            {
+                @Override
+                public void onSuccess(Uri downloadUrl)
+                {
+                    Glide.with(mContext).load(downloadUrl).into(mItemImage);
+                }
+            });
 
             itemView.findViewById(R.id.add_to_cart).setOnClickListener(view -> {
                 try {
@@ -140,6 +167,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 }
             });
         }
+
     }
 
 

@@ -4,7 +4,8 @@ public class Product {
     private String id;
     private String model;
     private String marka;
-    private String[] tarhely;
+    private int tarhely;
+    private String szin;
     private int ar;
     private String image_url;
 
@@ -19,21 +20,24 @@ public class Product {
         this.image_url = image_url;
     }
 
-    public Product(String id, String model, String marka, String[] tarhely, int ar, String image) {
+    public Product(String id, String model, String marka, int tarhely, String szin, int ar, String image) {
         this.id = id;
         this.model = model;
         this.marka = marka;
         this.tarhely = tarhely;
         this.ar = ar;
+        this.szin = szin;
         this.image_url = image;
     }
 
-    public Product(String id, String model, String marka, int ar,  String image) {
+    public Product(String id, String model, String marka, int ar, String image, String szin, int tarhely) {
         this.id = id;
         this.model = model;
         this.marka = marka;
         this.ar = ar;
         this.image_url = image;
+        this.szin = szin;
+        this.tarhely = tarhely;
     }
 
     public String getId() {
@@ -60,11 +64,11 @@ public class Product {
         this.marka = marka;
     }
 
-    public String[] getTarhely() {
+    public int getTarhely() {
         return tarhely;
     }
 
-    public void setTarhely(String[] tarhely) {
+    public void setTarhely(int tarhely) {
         this.tarhely = tarhely;
     }
 
@@ -74,5 +78,13 @@ public class Product {
 
     public void setAr(int ar) {
         this.ar = ar;
+    }
+
+    public String getSzin() {
+        return szin;
+    }
+
+    public void setSzin(String szin) {
+        this.szin = szin;
     }
 }

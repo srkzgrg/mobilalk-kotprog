@@ -1,6 +1,7 @@
 package hu.mobilalk.phoneshop.Services;
 
 import android.annotation.SuppressLint;
+import android.telecom.Call;
 import android.util.Log;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -56,16 +57,14 @@ public class CartService {
     }
 
     //READ
-    public void getKosar(ArrayList<Cart> mProducts, String userid,  CartAdapter mAdapter){
+    @SuppressLint("NotifyDataSetChanged")
+    public void getKosar(ArrayList<Cart> mProducts, String userid, CallbackUpdate updt){
         mItems.whereEqualTo("userid", userid).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 Cart item = document.toObject(Cart.class);
                 mProducts.add(item);
-                Log.i("Teszt", String.valueOf(item.getTermek()));
             }
-
-            // Notify the adapter of the change.
-            mAdapter.notifyDataSetChanged();
+            updt.onSuccess(true);
         });
     }
 
@@ -86,9 +85,44 @@ public class CartService {
                 mItems.document(document.getId()).delete();
             }
         });
-
     }
 
+    public void plusItemByProductId(String userid, String productid, CallbackUpdate upt){
+        int a = 0;
+        mItems.whereEqualTo("userid", userid).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for(QueryDocumentSnapshot document: queryDocumentSnapshots){
+                Cart item = document.toObject(Cart.class);
+                if(item.getTermek().getId().equals(productid)){
+                    item.setMennyiseg(item.getMennyiseg() + 1);
+                    item.setOsszar(item.getMennyiseg() * item.getTermek().getAr());
+                    Log.i("tesztKosar", String.valueOf(item.getMennyiseg()));
+                    mItems.document(document.getId()).update("mennyiseg", item.getMennyiseg());
+                    mItems.document(document.getId()).update("osszar", item.getOsszar());
+                }
+            }
+            upt.onSuccess(true);
+        });
+    }
+
+    public void minusItemByProductId(String userid, String productid, CallbackUpdate upt){
+        int a = 0;
+        mItems.whereEqualTo("userid", userid).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for(QueryDocumentSnapshot document: queryDocumentSnapshots){
+                Cart item = document.toObject(Cart.class);
+                if(item.getTermek().getId().equals(productid)){
+                    item.setMennyiseg(item.getMennyiseg() - 1);
+                    if(item.getMennyiseg() <= 0){
+                        mItems.document(document.getId()).delete();
+                    }else{
+                        item.setOsszar(item.getMennyiseg() * item.getTermek().getAr());
+                        mItems.document(document.getId()).update("mennyiseg", item.getMennyiseg());
+                        mItems.document(document.getId()).update("osszar", item.getOsszar());
+                    }
+                }
+            }
+            upt.onSuccess(true);
+        });
+    }
     public interface Callback {
         void onSuccess(List<Cart> prod);
     }
@@ -99,6 +133,11 @@ public class CartService {
     public interface CallbackVegosszeg {
         void onSuccess(int vegosszeg);
     }
+
+    public interface CallbackUpdate{
+        void onSuccess(boolean a);
+    }
+
 }
 
 

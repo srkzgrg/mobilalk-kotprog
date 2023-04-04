@@ -50,7 +50,7 @@
             android:textColor="@color/b1" />
 
         <Button
-            android:id="@+id/plus_cart"
+            android:id="@+id/minus_cart"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -60,13 +60,13 @@
             android:text="-" />
 
         <Button
-            android:id="@+id/minus_cart"
+            android:id="@+id/plus_cart"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@+id/plus_cart"
+            android:layout_toStartOf="@+id/minus_cart"
             android:text="+" />
 
     </RelativeLayout>

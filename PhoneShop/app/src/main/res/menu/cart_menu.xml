@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bag"
+        app:showAsAction="always"
+        android:icon="@drawable/shopping_bag_ic"
+        android:title="Termékek"
+        >
+    </item>
+    <item
+        android:id="@+id/log_out_button"
+        app:showAsAction="never"
+        android:icon="@drawable/logout_ic"
+        android:title="Kijelentkezés"
+        android:orderInCategory="2">
+    </item>
+    <item
+        android:id="@+id/rendelesek"
+        app:showAsAction="never"
+        android:icon="@drawable/rendelesek_ic"
+        android:title="Rendelések"
+        android:orderInCategory="1">
+    </item>
+</menu>
