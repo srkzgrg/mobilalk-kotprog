@@ -1,5 +1,6 @@
 package hu.mobilalk.phoneshop.Activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 
 import hu.mobilalk.phoneshop.Models.Cart;
 import hu.mobilalk.phoneshop.Adapters.CartAdapter;
+import hu.mobilalk.phoneshop.Notafications.NotaficationConfig;
 import hu.mobilalk.phoneshop.R;
 import hu.mobilalk.phoneshop.Services.CartService;
 import hu.mobilalk.phoneshop.Services.OrderService;
@@ -33,9 +36,8 @@ public class CartActivity extends AppCompatActivity {
     private static final String LOG_TAG = ShopActivity.class.getName();
     private FirebaseUser user;
     private int gridNumber = 1;
-    private FrameLayout badge;
-    private TextView countTextView;
 
+    private NotaficationConfig mNotificationConfig;
     private RecyclerView mRecyclerView;
     private ArrayList<Cart> mProducts;
     private CartAdapter mAdapter;
@@ -68,6 +70,8 @@ public class CartActivity extends AppCompatActivity {
 
         cimEditText = findViewById(R.id.editTextAdress);
         telefonEditText = findViewById(R.id.editTextPhone);
+
+        mNotificationConfig = new NotaficationConfig(this);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -84,6 +88,9 @@ public class CartActivity extends AppCompatActivity {
             new OrderService().addRendeles(user.getUid(), mProducts, cb, cim, telefon);
         });
         new CartService().removeCart(user.getUid());
+
+        mNotificationConfig.send("Köszönjük a rendelést!");
+
 
     }
 

@@ -83,8 +83,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         void bindTo(Cart currentItem){
             mTitleText.setText(currentItem.getTermek().getModel());
             mInfoText.setText(currentItem.getTermek().getMarka());
-            mPriceText.setText(String.valueOf(currentItem.getOsszar()));
-            mMennyisegText.setText(String.valueOf(currentItem.getMennyiseg()));
+            mPriceText.setText(String.valueOf(currentItem.getOsszar()) + " Ft");
+            mMennyisegText.setText(String.valueOf(currentItem.getMennyiseg()) + " db");
 
             itemView.findViewById(R.id.plus_cart).setOnClickListener(view -> {
                 ((CartActivity)mContext).plusItem(currentItem);

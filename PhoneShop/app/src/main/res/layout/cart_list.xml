@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="33dp"
             android:padding="8dp"
             android:text="@string/brand" />
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="81dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="20dp"
             android:padding="8dp"
             android:textColor="@color/b1" />
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/price"
             android:padding="8dp"
