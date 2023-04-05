@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +46,8 @@ public class CartActivity extends AppCompatActivity {
 
     EditText cimEditText;
     EditText telefonEditText;
+    Button rendelesBtn;
+    Button vasarasBtn;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -58,18 +62,34 @@ public class CartActivity extends AppCompatActivity {
         mAdapter = new CartAdapter(this, mProducts);
         mRecyclerView.setAdapter(mAdapter);
 
+        cimEditText = findViewById(R.id.editTextAdress);
+        telefonEditText = findViewById(R.id.editTextPhone);
+        rendelesBtn = findViewById(R.id.rendelesBtn);
+        vasarasBtn = findViewById(R.id.vasarlasBtn);
+        vasarasBtn.setVisibility(View.INVISIBLE);
+        vasarasBtn.setActivated(false);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
             Log.d(LOG_TAG, "Authenticated user!");
-            Log.i("Teszt", user.getUid());
-            new CartService().getKosar(mProducts, user.getUid(), upt ->{ mAdapter.notifyDataSetChanged();});
+            new CartService().getKosar(mProducts, user.getUid(), upt ->{
+                mAdapter.notifyDataSetChanged();
+                if(mProducts.size() == 0){
+                    cimEditText.setVisibility(View.INVISIBLE);
+                    telefonEditText.setVisibility(View.INVISIBLE);
+                    rendelesBtn.setVisibility(View.INVISIBLE);
+                    vasarasBtn.setVisibility(View.VISIBLE);
+                    vasarasBtn.setActivated(true);
+                    Toast.makeText(CartActivity.this, "Egyetlen termék sincs a kosaradban", Toast.LENGTH_LONG).show();
+
+                }
+            });
         } else {
             Log.d(LOG_TAG, "Unauthenticated user!");
             finish();
         }
 
-        cimEditText = findViewById(R.id.editTextAdress);
-        telefonEditText = findViewById(R.id.editTextPhone);
+
 
         mNotificationConfig = new NotaficationConfig(this);
     }
@@ -77,7 +97,18 @@ public class CartActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     public void getKosar(){
         mProducts.clear();
-        new CartService().getKosar(mProducts, user.getUid(), upt->{ mAdapter.notifyDataSetChanged();});
+        new CartService().getKosar(mProducts, user.getUid(), upt->{
+            mAdapter.notifyDataSetChanged();
+            if(mProducts.size() == 0){
+                cimEditText.setVisibility(View.INVISIBLE);
+                telefonEditText.setVisibility(View.INVISIBLE);
+                rendelesBtn.setVisibility(View.INVISIBLE);
+                vasarasBtn.setVisibility(View.VISIBLE);
+                vasarasBtn.setActivated(true);
+                Toast.makeText(CartActivity.this, "Egyetlen termék sincs a kosaradban", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
     }
 
@@ -129,4 +160,8 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    public void vasarlas(View view) {
+        Intent intent = new Intent(this, ShopActivity.class);
+        startActivity(intent);
+    }
 }

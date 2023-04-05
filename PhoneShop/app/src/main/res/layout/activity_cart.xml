@@ -21,9 +21,8 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
-        android:hint="5900, Orosháza"
-        android:inputType="textPersonName"
-        android:text="Szállítási cím" />
+        android:hint="Szállítási cím"
+        android:inputType="textPersonName"/>
 
     <EditText
         android:id="@+id/editTextPhone"
@@ -35,12 +34,11 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
-        android:hint="06303861426"
-        android:inputType="textPhonetic"
-        android:text="Telefonszám" />
+        android:hint="Telefonszám"
+        android:inputType="textPhonetic" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/rendelesBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextPhone"
@@ -50,5 +48,17 @@
         android:layout_marginTop="100dp"
         android:text="Rendelés leadása"
         android:onClick="rendeles"/>
+
+    <Button
+        android:id="@+id/vasarlasBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rendelesBtn"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="10dp"
+        android:onClick="vasarlas"
+        android:text="Vásárlás" />
 
 </RelativeLayout>
