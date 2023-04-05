@@ -1,5 +1,7 @@
 package hu.mobilalk.phoneshop.Models;
 
+import com.google.firebase.Timestamp;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +13,7 @@ public class Order {
     private Date datum;
     private String cim;
     private String telefon;
+    private String id;
 
     public Order(int vegosszeg, ArrayList<Cart> termekek, String user_id, Date datum, String cim, String telefon) {
         this.vegosszeg = vegosszeg;
@@ -24,8 +27,13 @@ public class Order {
     public Order() {
     }
 
+    public String getId() {
+        return id;
+    }
 
-
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getVegosszeg() {
         return vegosszeg;

@@ -3,6 +3,7 @@ package hu.mobilalk.phoneshop.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,35 +50,45 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        String email = userEmailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        String repassword = repasswordEditText.getText().toString();
-        String name = nameEditText.getText().toString();
+        try{
+            String email = userEmailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            String repassword = repasswordEditText.getText().toString();
+            String name = nameEditText.getText().toString();
+            if (!password.equals(repassword)) {
+                Toast.makeText(RegisterActivity.this, "A két jelszó nem egyezik", Toast.LENGTH_LONG).show();
+            }else {
 
-        if (!password.equals(repassword)) {
-            //TODO a két jelszó nem egyezik
-        }else {
-
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Log.d(LOG_TAG, "Sikeres regisztráció");
-                        User user = new User(user_id, email, name);
-                        new UserService().addUser(user);
-                        startShopping();
-                    } else {
-                        Log.d(LOG_TAG, "User was't created successfully:", task.getException());
-                        Toast.makeText(RegisterActivity.this, "A regisztráció sikertelen volt:", Toast.LENGTH_LONG).show();
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            User user = new User(user_id, email, name);
+                            new UserService().addUser(user);
+                            startShopping();
+                        } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                            Toast.makeText(RegisterActivity.this, "Hibás email formátum", Toast.LENGTH_LONG).show();
+                        }else if(password.length() < 6){
+                            Toast.makeText(RegisterActivity.this, "A jelszónak legalább 6 karakternek kell lennie!", Toast.LENGTH_LONG).show();
+                        }else {
+                            Log.d(LOG_TAG, "User was't created successfully:", task.getException());
+                            Toast.makeText(RegisterActivity.this, "A regisztráció sikertelen volt:", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
+                });
+            }
+        }catch (Exception e){
+            Toast.makeText(RegisterActivity.this, "Az összes mezőt ki kell tölteni!", Toast.LENGTH_LONG).show();
         }
+
+
+
     }
 
     private void startShopping() {
-
+        Intent intent = new Intent(this, ShopActivity.class);
+        startActivity(intent);
     }
 
     public void login(View view) {

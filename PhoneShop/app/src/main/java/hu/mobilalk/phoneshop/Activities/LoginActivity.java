@@ -28,17 +28,26 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view) {
         EditText emailET = findViewById(R.id.editTextEmail);
         EditText passwordET = findViewById(R.id.editTextPassword);
+        try{
+            String email = emailET.getText().toString();
+            String pwd = passwordET.getText().toString();
 
-        String email = emailET.getText().toString();
-        String pwd = passwordET.getText().toString();
+            mAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(this, task -> {
+                if(task.isSuccessful()){
+                    startShopping();
+                } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    Toast.makeText(LoginActivity.this, "Hibás email formátum", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(LoginActivity.this, "Nincs ilyen felhasználó!", Toast.LENGTH_LONG).show();
+                }
+            });
 
-        mAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()){
-                startShopping();
-            } else {
-                Toast.makeText(LoginActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        }catch (Exception e){
+            Toast.makeText(LoginActivity.this, "Nem lehet üres a beviteli mező", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
     }
 

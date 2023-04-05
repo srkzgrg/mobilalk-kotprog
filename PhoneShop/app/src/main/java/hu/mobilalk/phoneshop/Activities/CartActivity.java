@@ -113,14 +113,17 @@ public class CartActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.log_out_button:
-                Log.d(LOG_TAG, "Logout clicked!");
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
                 return true;
             case R.id.bag:
                 Intent intent = new Intent(this, ShopActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.rendelesek:
+                Intent rendelesekIntent = new Intent(this, ShopActivity.class);
+                startActivity(rendelesekIntent);
             default:
                 return super.onOptionsItemSelected(item);
         }

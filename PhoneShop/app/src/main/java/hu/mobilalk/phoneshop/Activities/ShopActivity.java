@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+import hu.mobilalk.phoneshop.Models.Order;
 import hu.mobilalk.phoneshop.Models.Product;
 import hu.mobilalk.phoneshop.Adapters.ProductAdapter;
 import hu.mobilalk.phoneshop.R;
@@ -109,13 +110,16 @@ public class ShopActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.log_out_button:
-                Log.d(LOG_TAG, "Logout clicked!");
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true;
             case R.id.cart:
-                Intent intent = new Intent(this, CartActivity.class);
-                startActivity(intent);
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                startActivity(cartIntent);
+                return true;
+            case R.id.rendelesek:
+                Intent orderIntent = new Intent(this, OrderActivity.class);
+                startActivity(orderIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
