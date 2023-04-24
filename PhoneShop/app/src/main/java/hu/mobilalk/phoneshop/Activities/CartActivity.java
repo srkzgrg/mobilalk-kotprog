@@ -153,7 +153,7 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.rendelesek:
-                Intent rendelesekIntent = new Intent(this, ShopActivity.class);
+                Intent rendelesekIntent = new Intent(this, OrderActivity.class);
                 startActivity(rendelesekIntent);
             default:
                 return super.onOptionsItemSelected(item);
