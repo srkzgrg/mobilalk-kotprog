@@ -29,7 +29,7 @@
             android:padding="8dp"
             android:text="@string/model"
             android:textColor="?android:textColorSecondary"
-            android:textSize="18dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/productBrand"
@@ -38,7 +38,7 @@
             android:layout_below="@+id/productModel"
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="1dp"
             android:padding="8dp"
             android:text="@string/brand"
             android:textSize="15dp" />
@@ -50,10 +50,11 @@
             android:layout_below="@+id/productBrand"
             android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="12dp"
             android:padding="8dp"
-            android:textColor="@color/b1" />
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/add_to_cart"
@@ -70,22 +71,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="21dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20dp"
             android:layout_toStartOf="@+id/itemImage"
             android:text="TextView"
-            android:textSize="13dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/productStorage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/productColor"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="21dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
             android:layout_toStartOf="@+id/itemImage"
             android:text="TextView"
-            android:textSize="13dp" />
+            android:textSize="15dp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
