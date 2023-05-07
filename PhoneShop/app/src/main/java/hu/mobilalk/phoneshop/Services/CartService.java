@@ -71,7 +71,7 @@ public class CartService {
 
     public void getVegosszegByUserId(String userid, CallbackVegosszeg callback){
         final int[] vegosszeg = {0};
-        mItems.whereEqualTo("userid", userid).orderBy("osszar").get().addOnSuccessListener(queryDocumentSnapshots -> {
+        mItems.whereEqualTo("userid", userid).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for(QueryDocumentSnapshot document : queryDocumentSnapshots){
                 Cart item = document.toObject(Cart.class);
                 vegosszeg[0] +=item.getOsszar();

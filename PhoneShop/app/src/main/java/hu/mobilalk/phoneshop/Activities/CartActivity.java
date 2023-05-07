@@ -119,6 +119,8 @@ public class CartActivity extends AppCompatActivity {
             new OrderService().addRendeles(user.getUid(), mProducts, cb, cim, telefon);
         });
         new CartService().removeCart(user.getUid());
+        Intent intent = new Intent(this, OrderActivity.class);
+        startActivity(intent);
 
         mNotificationConfig.send("Köszönjük a rendelést!");
 
