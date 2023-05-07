@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ProductService {
 
     @SuppressLint("NotifyDataSetChanged")
     public void listProducts(ArrayList<Product> mProducts, ProductAdapter mAdapter){
-        mItems.orderBy("model").get().addOnSuccessListener(queryDocumentSnapshots -> {
+        mItems.orderBy("model", Query.Direction.DESCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 Product item = document.toObject(Product.class);
                 mProducts.add(item);
