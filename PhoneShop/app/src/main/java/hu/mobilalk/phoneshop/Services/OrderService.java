@@ -34,7 +34,7 @@ public class OrderService {
     }
 
     public void getRendelesByUserID(ArrayList<Order> mProducts, String userid, CallbackUpdate updt){
-        mItems.whereEqualTo("user_id", userid).limitToLast(5).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        mItems.whereEqualTo("user_id", userid).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 Order item = document.toObject(Order.class);
                 Log.i("Teszt", String.valueOf(item));
